@@ -1,73 +1,231 @@
-# React + TypeScript + Vite
+# 📚 Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue)
+![SpringBoot](https://img.shields.io/badge/Backend-SpringBoot-green)
+![MySQL](https://img.shields.io/badge/Database-MySQL-orange)
+![Tailwind](https://img.shields.io/badge/UI-TailwindCSS-38B2AC)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Website: https://library-management-client-side-three.vercel.app/
+- Github Repository for client side (LibraryManagement-Client-side): https://github.com/NAFEEJ007/LibraryManagement-Client-side
+- Github Repository for server side (LibraryManagement-Server-side): https://github.com/NAFEEJ007/LibraryManagement-Server-side
 
-## React Compiler
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
 
-## Expanding the ESLint configuration
+## 📌 Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The **Library Management System** is a full-stack web application designed to efficiently manage books, users, and borrowing activities within a library.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+It provides an intuitive admin interface with **sidebar-based navigation**, allowing seamless control over users, books, assignments, and returns.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+This project demonstrates real-world software development practices including **clean architecture, relational database design, and user-focused UI/UX**.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🎨 Frontend
+- React.js  
+- TypeScript  
+- Tailwind CSS  
+- DaisyUI  
+- SweetAlert (for alerts & confirmations)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### ⚙️ Backend
+- Spring Boot  
+- REST APIs  
+- Layered Architecture (Controller → Service → Repository)
+
+### 🗄️ Database
+- MySQL  
+
+---
+
+## 🔐 Demo Login Credentials
+
+> 📌 Use the following credentials to access the system:
+
+- **Username:** `admin`  
+- **Password:** `1234`  
+
+💡 These credentials are stored in the **MySQL database** (`admin` table).
+
+---
+
+## ✨ Features
+
+### 👤 Admin Panel
+- Secure login system  
+- Sidebar-based navigation  
+
+---
+
+### 👥 User Management
+- Add new users  
+- Edit user information  
+- Soft delete users using `active` flag  
+- View all users  
+
+---
+
+### 📚 Book Management
+- Add new books  
+- Edit book details  
+- Soft delete books using `active` flag    
+- View all books  
+
+---
+
+### 🔄 Book Assignment
+- Assign books to users  
+- Set issue date and due date  
+- Add optional notes/instructions  
+
+---
+
+### 📥 Book Return System
+- Shows only borrowed books for selected user  
+- Tracks return date  
+- Identifies late returns  
+- Fine system planned for future  
+
+---
+
+### 📊 Dashboard
+- Total books  
+- Books assigned  
+- Books returned  
+- Total users  
+- Fined users (future)  
+- Currently issued books table  
+
+---
+
+### 🔔 User Experience Enhancements
+- SweetAlert integration for:
+  - ✅ Success messages  
+  - ⚠️ Delete confirmations  
+  - ❌ Error handling  
+
+---
+
+## 🧠 System Design Highlights
+
+- 🔹 Layered backend architecture  
+- 🔹 Soft delete strategy (`active` flag)  
+- 🔹 Relational database design with foreign keys  
+- 🔹 Smart filtering in return book workflow  
+- 🔹 Scalable structure for future enhancements  
+
+---
+
+## 🖼️ System Architecture Diagram
+
+
+![Architecture Diagram](./screenshots/system_architechture diagram.PNG)
+
+---
+
+## 🗃️ ER Diagram
+
+
+![ER Diagram](./screenshots/er diagram.png)
+
+
+---
+
+## 🔄 Application Flow Diagram
+
+
+![Flow Diagram](./screenshots/application_flow.png)
+
+---
+
+## 📸 Screenshots
+
+
+### 🔐 Login Page
+![Login](./screenshots/login.PNG)
+
+### 📊 Dashboard
+![Dashboard](./screenshots/Dashboard.PNG)
+
+### 👥 Users Page
+![Users](./screenshots/Users.PNG)
+
+### 👥 Add Users Page
+![Users](./screenshots/AddUser.PNG)
+
+### 📚 Books Page
+![Books](./screenshots/Books.PNG)
+
+### 📚 Add Books Page
+![Books](./screenshots/AddBooks.PNG)
+
+### 🔄 Assign Book
+![Assign](./screenshots/AssignBook.PNG)
+
+### 📥 Return Book
+![Return](./screenshots/ReturnBook.PNG)
+
+---
+
+## 🚀 Future Work
+
+### 💰 Fine Management System
+- Show the list of users and their fines  
+
+---
+
+### 🔐 Role-Based Authentication
+- Admin, Librarian, User roles  
+- Secure access control  
+
+---
+
+### 🔍 Advanced Search & Filtering
+- Search books and users  
+
+
+---
+
+### 📧 Notification System
+- Email alerts for due dates and returns  
+
+---
+
+### 📊 Reports & Analytics
+- Most borrowed books  
+
+---
+
+### 📱 UI/UX Improvements
+- Animations and transitions  
+- Dark mode  
+
+---
+
+
+
+## 🎯 Purpose
+
+This project showcases:
+- Full-stack development skills  
+- Real-world system design  
+- Database modeling  
+- Clean and maintainable architecture  
+
+It is designed to be **scalable, user-friendly, and production-ready**.
+
+## 👨💻 Author
+
+**Nafeej Tamjeed Ahmed**
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ and feel free to fork!

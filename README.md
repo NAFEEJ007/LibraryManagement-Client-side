@@ -125,14 +125,14 @@ This project demonstrates real-world software development practices including **
 ## 🖼️ System Architecture Diagram
 
 
-![Architecture Diagram](./screenshots/system_architechture diagram.PNG)
+![Architecture Diagram](./screenshots/system_architechture%20diagram.PNG)
 
 ---
 
 ## 🗃️ ER Diagram
 
 
-![ER Diagram](./screenshots/er diagram.png)
+![ER Diagram](./screenshots/er%20diagram.png)
 
 
 ---

@@ -25,7 +25,7 @@ const Books = () => {
 
   // 🔹 Load books
   useEffect(() => {
-    fetch("http://localhost:8080/books/bookslist")
+    fetch("https://brave-dedication-production-c20f.up.railway.app/books/bookslist")
       .then((res) => res.json())
       .then((data) => setBooks(data));
   }, []);
@@ -48,7 +48,7 @@ const Books = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/books/update/${selectedBook.bookId}`, // ✅ FIXED
+        `https://brave-dedication-production-c20f.up.railway.app/books/update/${selectedBook.bookId}`, // ✅ FIXED
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -113,7 +113,7 @@ const Books = () => {
       if (result.isConfirmed) {
         try {
           const res = await fetch(
-            `http://localhost:8080/books/delete/${bookId}`,
+            `https://brave-dedication-production-c20f.up.railway.app/books/delete/${bookId}`,
             { method: "DELETE" },
           );
 

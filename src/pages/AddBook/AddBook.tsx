@@ -13,7 +13,7 @@ const AddBook = () => {
 
 
         try {
-            const response = await fetch('http://localhost:8080/books/add', {
+            const response = await fetch('https://brave-dedication-production-c20f.up.railway.app/books/add', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(newBook)

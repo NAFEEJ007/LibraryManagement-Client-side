@@ -24,7 +24,7 @@ const ReturnBook = () => {
 
   // Load users
   useEffect(() => {
-    fetch("http://localhost:8080/users/userslist")
+    fetch("https://brave-dedication-production-c20f.up.railway.app/users/userslist")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
@@ -32,7 +32,7 @@ const ReturnBook = () => {
   // Load borrowed books for selected user
   useEffect(() => {
     if (selectedUser) {
-      fetch(`http://localhost:8080/borrow/user/${selectedUser}`)
+      fetch(`https://brave-dedication-production-c20f.up.railway.app/borrow/user/${selectedUser}`)
         .then((res) => res.json())
         .then((data) => setBorrowedBooks(data));
       setSelectedBook(null); // reset book when user changes
@@ -55,7 +55,7 @@ const ReturnBook = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8080/borrow/return", {
+      const res = await fetch("https://brave-dedication-production-c20f.up.railway.app/borrow/return", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),

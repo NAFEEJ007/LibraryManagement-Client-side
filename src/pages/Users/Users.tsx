@@ -18,7 +18,7 @@ const Users = () => {
 
   // 🔹 Load users
   useEffect(() => {
-    fetch("http://localhost:8080/users/userslist")
+    fetch("https://brave-dedication-production-c20f.up.railway.app/users/userslist")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
@@ -48,7 +48,7 @@ const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
 
   try {
     const res = await fetch(
-      `http://localhost:8080/users/update/${selectedUser.userId}`,
+      `https://brave-dedication-production-c20f.up.railway.app/users/update/${selectedUser.userId}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -106,7 +106,7 @@ const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
       if (result.isConfirmed) {
         try {
           const res = await fetch(
-            `http://localhost:8080/users/delete/${userId}`,
+            `https://brave-dedication-production-c20f.up.railway.app/users/delete/${userId}`,
             { method: "DELETE" }
           );
 

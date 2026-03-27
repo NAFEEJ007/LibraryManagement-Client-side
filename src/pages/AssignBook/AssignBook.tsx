@@ -19,11 +19,11 @@ const AssignBook = () => {
 
   // Fetch users and books on component mount
   useEffect(() => {
-    fetch("http://localhost:8080/users/userslist")
+    fetch("https://brave-dedication-production-c20f.up.railway.app/users/userslist")
       .then((res) => res.json())
       .then((data) => setUsers(data));
 
-    fetch("http://localhost:8080/books/bookslist")
+    fetch("https://brave-dedication-production-c20f.up.railway.app/books/bookslist")
       .then((res) => res.json())
       .then((data) => setBooks(data));
   }, []);
@@ -37,7 +37,7 @@ const AssignBook = () => {
     const borrowRecord = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch("http://localhost:8080/borrow/assign", {
+      const response = await fetch("https://brave-dedication-production-c20f.up.railway.app/borrow/assign", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(borrowRecord),

@@ -12,7 +12,7 @@ const AddUser = () => {
     const newUser = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch("http://localhost:8080/users/add", {
+      const res = await fetch("https://brave-dedication-production-c20f.up.railway.app/users/add", {
         method: "POST",
         headers: {
           "content-type": "application/json"

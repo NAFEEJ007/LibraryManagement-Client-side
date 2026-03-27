@@ -7,8 +7,7 @@ import {
   Users,
   UserPlus,
   ClipboardCheck,
-  RotateCcw,
-  X // Added close icon for mobile sidebar header if needed
+  RotateCcw
 } from "lucide-react";
 
 interface SidebarProps {

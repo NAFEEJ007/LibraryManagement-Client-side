@@ -5,10 +5,6 @@ import {
   Trash2,
   Plus,
   Save,
-  User,
-  Tag,
-  Hash,
-  Layers,
 } from "lucide-react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";

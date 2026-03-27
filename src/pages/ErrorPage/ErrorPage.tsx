@@ -1,4 +1,4 @@
-import React from "react";
+
 import { BookOpen, ArrowLeft, RefreshCw } from "lucide-react";
 
 const ErrorPage = () => {

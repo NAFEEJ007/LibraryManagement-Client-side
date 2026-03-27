@@ -126,7 +126,7 @@ const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
   };
 
   return (
-    <div className="h-full w-full p-4 md:p-8 bg-gray-50 flex flex-col items-center">
+    <div className="min-h-full w-full p-4 md:p-8 bg-gray-50 flex flex-col items-center">
       <div className="max-w-6xl w-full bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
 
         {/* Header */}

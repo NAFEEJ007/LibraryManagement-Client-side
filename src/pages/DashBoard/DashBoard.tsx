@@ -64,7 +64,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="h-full w-full p-4 md:p-8 bg-gray-50 flex flex-col gap-4 md:gap-6">
+    <div className="min-h-full w-full p-4 md:p-8 bg-gray-50 flex flex-col gap-4 md:gap-6">
 
       {/* 🔹 Header */}
       <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6 rounded-2xl shadow-xl flex items-center gap-3">

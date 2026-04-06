@@ -47,8 +47,8 @@ const Dashboard = () => {
   const fetchDashboard = async () => {
     try {
       const [statsRes, issuedRes] = await Promise.all([
-        fetch("https://brave-dedication-production-c20f.up.railway.app/dashboard/stats"),
-        fetch("https://brave-dedication-production-c20f.up.railway.app/dashboard/issued")
+        fetch("https://librarymanagement-server-side.onrender.com/dashboard/stats"),
+        fetch("https://librarymanagement-server-side.onrender.com/dashboard/issued")
       ]);
 
       const statsData = await statsRes.json();

@@ -27,6 +27,8 @@ type IssuedBook = {
   fine: number;
 };
 
+import GlobalSearchBar from "./GlobalSearchBar";
+
 const Dashboard = () => {
 
   const [stats, setStats] = useState<Stats>({
@@ -54,8 +56,14 @@ const Dashboard = () => {
       const statsData = await statsRes.json();
       const issuedData = await issuedRes.json();
 
-      setStats(statsData);
-      setIssuedBooks(issuedData);
+      setStats({
+        totalBooks: statsData.totalBooks || 0,
+        assignedBooks: statsData.assignedBooks || 0,
+        returnedBooks: statsData.returnedBooks || 0,
+        totalUsers: statsData.totalUsers || 0,
+        finedUsers: statsData.finedUsers || 0
+      });
+      setIssuedBooks(issuedData || []);
     } catch (error) {
       console.error("Error loading dashboard:", error);
     } finally {
@@ -70,6 +78,13 @@ const Dashboard = () => {
       <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6 rounded-2xl shadow-xl flex items-center gap-3">
         <LayoutDashboard className="text-indigo-400 w-6 h-6 md:w-7 md:h-7" />
         <h2 className="text-xl md:text-2xl font-bold text-white">Dashboard</h2>
+      </div>
+
+      {/* 🔹 Global Search Bar */}
+      <div className="w-full flex md:justify-end">
+        <div className="w-full sm:max-w-md">
+          <GlobalSearchBar />
+        </div>
       </div>
 
       {/* 🔹 Cards */}

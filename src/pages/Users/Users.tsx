@@ -236,6 +236,7 @@ const Users = () => {
                           onClick={() => {
                             setSearchQuery(user.name);
                             setShowSuggestions(false);
+                            setIsSearchModalOpen(true);
                           }}
                           className="cursor-pointer text-sm px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 truncate"
                         >

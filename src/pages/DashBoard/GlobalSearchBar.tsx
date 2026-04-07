@@ -47,12 +47,16 @@ const GlobalSearchBar = () => {
     const fetchSearch = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:8080/api/search?q=${encodeURIComponent(debouncedQuery)}`);
-        if (!response.ok) {
-           // Fallback to production URL if local fails (temporary approach to handle different environments smoothly)
-           // If local fails, try the render url. Just directly use the standard endpoints if production.
-           console.error("Unable to fetch from API.");
+        let response;
+        try {
+          response = await fetch(`http://localhost:8080/api/search?q=${encodeURIComponent(debouncedQuery)}`);
+          if (!response.ok) throw new Error("Local API failed.");
+        } catch (localError) {
+          // Fallback to production URL if local fails (temporary approach to handle different environments smoothly)
+          response = await fetch(`https://librarymanagement-server-side.onrender.com/api/search?q=${encodeURIComponent(debouncedQuery)}`);
+          if (!response.ok) throw new Error("Production API failed.");
         }
+        
         const data = await response.json();
         setBooks(data.books || []);
         setUsers(data.users || []);

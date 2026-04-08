@@ -22,6 +22,19 @@ const ReturnBook = () => {
   const [selectedBook, setSelectedBook] = useState<BorrowedBook | null>(null);
   const [returnDate, setReturnDate] = useState("");
 
+  const [userSearchQuery, setUserSearchQuery] = useState("");
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+
+  const filteredUsers = users.filter((u) =>
+    u.name.toLowerCase().includes(userSearchQuery.toLowerCase())
+  );
+
+  const handleUserSelect = (u: UserType) => {
+    setSelectedUser(u.userId.toString());
+    setUserSearchQuery("");
+    setShowUserDropdown(false);
+  };
+
   // Load users
   useEffect(() => {
     fetch("https://librarymanagement-server-side.onrender.com/users/userslist")
@@ -108,11 +121,42 @@ const ReturnBook = () => {
               >
                 <option value="">Select User</option>
                 {users.map((user) => (
-<option key={user.userId} value={user.userId}>
-  {user.name} (ID: {user.userId})
-</option>
+                  <option key={user.userId} value={user.userId}>
+                    {user.name} (ID: {user.userId})
+                  </option>
                 ))}
               </select>
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  placeholder="Or search user by name..."
+                  value={userSearchQuery}
+                  onChange={(e) => {
+                    setUserSearchQuery(e.target.value);
+                    setShowUserDropdown(true);
+                  }}
+                  onFocus={() => setShowUserDropdown(true)}
+                  onBlur={() => setTimeout(() => setShowUserDropdown(false), 200)}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-sm"
+                />
+                {showUserDropdown && userSearchQuery && (
+                  <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
+                    {filteredUsers.length > 0 ? (
+                      filteredUsers.map((user) => (
+                        <li
+                          key={user.userId}
+                          onMouseDown={() => handleUserSelect(user)}
+                          className="px-4 py-2 hover:bg-indigo-50 cursor-pointer text-sm text-gray-700"
+                        >
+                          {user.name} (ID: {user.userId})
+                        </li>
+                      ))
+                    ) : (
+                      <li className="px-4 py-2 text-sm text-gray-500">No users found</li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
 
             {/* Book */}

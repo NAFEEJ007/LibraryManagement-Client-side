@@ -17,6 +17,34 @@ const AssignBook = () => {
   const [users, setUsers] = useState<UserType[]>([]);
   const [books, setBooks] = useState<BookType[]>([]);
 
+  const [selectedUserId, setSelectedUserId] = useState<string>("");
+  const [userSearchQuery, setUserSearchQuery] = useState("");
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+
+  const [selectedBookId, setSelectedBookId] = useState<string>("");
+  const [bookSearchQuery, setBookSearchQuery] = useState("");
+  const [showBookDropdown, setShowBookDropdown] = useState(false);
+
+  const filteredUsers = users.filter((u) =>
+    u.name.toLowerCase().includes(userSearchQuery.toLowerCase())
+  );
+
+  const handleUserSelect = (u: UserType) => {
+    setSelectedUserId(u.userId.toString());
+    setUserSearchQuery("");
+    setShowUserDropdown(false);
+  };
+
+  const filteredBooks = books.filter((b) =>
+    b.title.toLowerCase().includes(bookSearchQuery.toLowerCase())
+  );
+
+  const handleBookSelect = (b: BookType) => {
+    setSelectedBookId(b.bookId.toString());
+    setBookSearchQuery("");
+    setShowBookDropdown(false);
+  };
+
   // Fetch users and books on component mount
   useEffect(() => {
     fetch("https://librarymanagement-server-side.onrender.com/users/userslist")
@@ -59,6 +87,8 @@ const AssignBook = () => {
             confirmButtonColor: "#4f46e5",
           });
           form.reset();
+          setSelectedUserId("");
+          setSelectedBookId("");
           break;
 
         case "BOOK_ALREADY_ASSIGNED":
@@ -122,6 +152,8 @@ const AssignBook = () => {
               </label>
               <select
                 name="userId"
+                value={selectedUserId}
+                onChange={(e) => setSelectedUserId(e.target.value)}
                 required
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white"
               >
@@ -132,6 +164,37 @@ const AssignBook = () => {
                   </option>
                 ))}
               </select>
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  placeholder="Or search user by name..."
+                  value={userSearchQuery}
+                  onChange={(e) => {
+                    setUserSearchQuery(e.target.value);
+                    setShowUserDropdown(true);
+                  }}
+                  onFocus={() => setShowUserDropdown(true)}
+                  onBlur={() => setTimeout(() => setShowUserDropdown(false), 200)}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-sm"
+                />
+                {showUserDropdown && userSearchQuery && (
+                  <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
+                    {filteredUsers.length > 0 ? (
+                      filteredUsers.map((user) => (
+                        <li
+                          key={user.userId}
+                          onMouseDown={() => handleUserSelect(user)}
+                          className="px-4 py-2 hover:bg-indigo-50 cursor-pointer text-sm text-gray-700"
+                        >
+                          {user.name} (ID: {user.userId})
+                        </li>
+                      ))
+                    ) : (
+                      <li className="px-4 py-2 text-sm text-gray-500">No users found</li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
 
             {/* Book Dropdown */}
@@ -142,6 +205,8 @@ const AssignBook = () => {
               </label>
               <select
                 name="bookId"
+                value={selectedBookId}
+                onChange={(e) => setSelectedBookId(e.target.value)}
                 required
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white"
               >
@@ -152,6 +217,37 @@ const AssignBook = () => {
                   </option>
                 ))}
               </select>
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  placeholder="Or search book by name..."
+                  value={bookSearchQuery}
+                  onChange={(e) => {
+                    setBookSearchQuery(e.target.value);
+                    setShowBookDropdown(true);
+                  }}
+                  onFocus={() => setShowBookDropdown(true)}
+                  onBlur={() => setTimeout(() => setShowBookDropdown(false), 200)}
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-sm"
+                />
+                {showBookDropdown && bookSearchQuery && (
+                  <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
+                    {filteredBooks.length > 0 ? (
+                      filteredBooks.map((book) => (
+                        <li
+                          key={book.bookId}
+                          onMouseDown={() => handleBookSelect(book)}
+                          className="px-4 py-2 hover:bg-indigo-50 cursor-pointer text-sm text-gray-700"
+                        >
+                          {book.title} (ID: {book.bookId})
+                        </li>
+                      ))
+                    ) : (
+                      <li className="px-4 py-2 text-sm text-gray-500">No books found</li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
 
             {/* Issue Date */}

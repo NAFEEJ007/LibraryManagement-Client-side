@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { User, BookOpen, Calendar, FileText, Save } from "lucide-react";
 import Swal from "sweetalert2";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 type UserType = {
   userId: number;
@@ -25,14 +27,29 @@ const ReturnBook = () => {
   const [userSearchQuery, setUserSearchQuery] = useState("");
   const [showUserDropdown, setShowUserDropdown] = useState(false);
 
+  const [bookSearchQuery, setBookSearchQuery] = useState("");
+  const [showBookDropdown, setShowBookDropdown] = useState(false);
+
+  const [notes, setNotes] = useState("");
+
   const filteredUsers = users.filter((u) =>
-    u.name.toLowerCase().includes(userSearchQuery.toLowerCase())
+    u.name.toLowerCase().includes(userSearchQuery.toLowerCase()) || u.userId.toString().includes(userSearchQuery)
   );
 
   const handleUserSelect = (u: UserType) => {
     setSelectedUser(u.userId.toString());
-    setUserSearchQuery("");
+    setUserSearchQuery(`${u.name} (ID: ${u.userId})`);
     setShowUserDropdown(false);
+  };
+
+  const filteredBorrowedBooks = borrowedBooks.filter((b) =>
+    b.title.toLowerCase().includes(bookSearchQuery.toLowerCase()) || b.borrowId.toString().includes(bookSearchQuery)
+  );
+
+  const handleBookSelect = (b: BorrowedBook) => {
+    setSelectedBook(b);
+    setBookSearchQuery(`${b.title} (ID: ${b.borrowId})`);
+    setShowBookDropdown(false);
   };
 
   // Load users
@@ -49,6 +66,7 @@ const ReturnBook = () => {
         .then((res) => res.json())
         .then((data) => setBorrowedBooks(data));
       setSelectedBook(null); // reset book when user changes
+      setBookSearchQuery("");
       setReturnDate("");
     }
   }, [selectedUser]);
@@ -80,11 +98,20 @@ const ReturnBook = () => {
         Swal.fire("Success", "Book returned successfully", "success");
         setSelectedBook(null);
         setReturnDate("");
+        setBookSearchQuery("");
+        setNotes("");
         setBorrowedBooks((prev) =>
           prev.filter((b) => b.borrowId !== selectedBook.borrowId)
         );
       } else if (data.message === "BOOK_RETURNED_ON_TIME") {
         Swal.fire("Success", "Book returned on time", "success");
+        setSelectedBook(null);
+        setReturnDate("");
+        setBookSearchQuery("");
+        setNotes("");
+        setBorrowedBooks((prev) =>
+          prev.filter((b) => b.borrowId !== selectedBook.borrowId)
+        );
       }
     } catch {
       Swal.fire("Error", "Server error", "error");
@@ -113,33 +140,22 @@ const ReturnBook = () => {
                 <User size={16} className="text-indigo-500" />
                 Select User
               </label>
-              <select
-                value={selectedUser}
-                onChange={(e) => setSelectedUser(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-gray-50"
-                required
-              >
-                <option value="">Select User</option>
-                {users.map((user) => (
-                  <option key={user.userId} value={user.userId}>
-                    {user.name} (ID: {user.userId})
-                  </option>
-                ))}
-              </select>
-              <div className="relative mt-2">
+              <div className="relative">
                 <input
                   type="text"
-                  placeholder="Or search user by name..."
+                  placeholder="Search and select user..."
                   value={userSearchQuery}
                   onChange={(e) => {
                     setUserSearchQuery(e.target.value);
+                    if (selectedUser) setSelectedUser("");
                     setShowUserDropdown(true);
                   }}
                   onFocus={() => setShowUserDropdown(true)}
                   onBlur={() => setTimeout(() => setShowUserDropdown(false), 200)}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white text-sm"
+                  required={!selectedUser}
                 />
-                {showUserDropdown && userSearchQuery && (
+                {showUserDropdown && (
                   <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
                     {filteredUsers.length > 0 ? (
                       filteredUsers.map((user) => (
@@ -165,23 +181,40 @@ const ReturnBook = () => {
                 <BookOpen size={16} className="text-indigo-500" />
                 Select Book
               </label>
-              <select
-                onChange={(e) => {
-                  const book = borrowedBooks.find(
-                    (b) => b.borrowId === Number(e.target.value)
-                  );
-                  setSelectedBook(book || null);
-                }}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-gray-50"
-                required
-              >
-                <option value="">Select Book</option>
-                {borrowedBooks.map((book) => (
-                  <option key={book.borrowId} value={book.borrowId}>
-                    {book.title}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search and select book..."
+                  value={bookSearchQuery}
+                  onChange={(e) => {
+                    setBookSearchQuery(e.target.value);
+                    if (selectedBook) setSelectedBook(null);
+                    setShowBookDropdown(true);
+                  }}
+                  onFocus={() => setShowBookDropdown(true)}
+                  onBlur={() => setTimeout(() => setShowBookDropdown(false), 200)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white text-sm"
+                  required={!selectedBook}
+                  disabled={!selectedUser}
+                />
+                {showBookDropdown && (
+                  <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
+                    {filteredBorrowedBooks.length > 0 ? (
+                      filteredBorrowedBooks.map((book) => (
+                        <li
+                          key={book.borrowId}
+                          onMouseDown={() => handleBookSelect(book)}
+                          className="px-4 py-2 hover:bg-indigo-50 cursor-pointer text-sm text-gray-700"
+                        >
+                          {book.title} (Borrow ID: {book.borrowId})
+                        </li>
+                      ))
+                    ) : (
+                      <li className="px-4 py-2 text-sm text-gray-500">No borrowed books found</li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
 
             {/* Due Date */}
@@ -217,14 +250,16 @@ const ReturnBook = () => {
                 <FileText size={16} className="text-indigo-500" />
                 Notes
               </label>
-              <textarea
-                rows={3}
-                placeholder={isLate ? "Late return! Fine Will Be Applied!" : "Optional notes"}
-                className={`w-full px-4 py-3 rounded-lg border outline-none ${
-                  isLate ? "border-red-500 bg-red-50" : "border-gray-300 bg-gray-50"
-                }`}
-                readOnly={isLate} // optional: make read-only if you want admin to apply fine manually
-              />
+              <div className={`bg-white rounded-lg border ${isLate ? "border-red-500" : "border-gray-300"}`}>
+                <ReactQuill 
+                  theme="snow" 
+                  value={notes} 
+                  onChange={setNotes} 
+                  placeholder={isLate ? "Late return! Fine Will Be Applied!" : "Optional notes"}
+                  readOnly={isLate}
+                  className={isLate ? "bg-red-50" : "bg-white"}
+                />
+              </div>
             </div>
           </div>
 

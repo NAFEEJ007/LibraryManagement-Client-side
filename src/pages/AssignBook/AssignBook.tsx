@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BookOpen, User, Calendar, FileText, Save } from "lucide-react";
 import Swal from "sweetalert2";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 type UserType = {
   userId: number;
@@ -25,23 +27,25 @@ const AssignBook = () => {
   const [bookSearchQuery, setBookSearchQuery] = useState("");
   const [showBookDropdown, setShowBookDropdown] = useState(false);
 
+  const [notes, setNotes] = useState("");
+
   const filteredUsers = users.filter((u) =>
-    u.name.toLowerCase().includes(userSearchQuery.toLowerCase())
+    u.name.toLowerCase().includes(userSearchQuery.toLowerCase()) || u.userId.toString().includes(userSearchQuery)
   );
 
   const handleUserSelect = (u: UserType) => {
     setSelectedUserId(u.userId.toString());
-    setUserSearchQuery("");
+    setUserSearchQuery(`${u.name} (ID: ${u.userId})`);
     setShowUserDropdown(false);
   };
 
   const filteredBooks = books.filter((b) =>
-    b.title.toLowerCase().includes(bookSearchQuery.toLowerCase())
+    b.title.toLowerCase().includes(bookSearchQuery.toLowerCase()) || b.bookId.toString().includes(bookSearchQuery)
   );
 
   const handleBookSelect = (b: BookType) => {
     setSelectedBookId(b.bookId.toString());
-    setBookSearchQuery("");
+    setBookSearchQuery(`${b.title} (ID: ${b.bookId})`);
     setShowBookDropdown(false);
   };
 
@@ -88,7 +92,10 @@ const AssignBook = () => {
           });
           form.reset();
           setSelectedUserId("");
+          setUserSearchQuery("");
           setSelectedBookId("");
+          setBookSearchQuery("");
+          setNotes("");
           break;
 
         case "BOOK_ALREADY_ASSIGNED":
@@ -150,34 +157,23 @@ const AssignBook = () => {
                 <User size={16} className="text-indigo-500" />
                 Select User
               </label>
-              <select
-                name="userId"
-                value={selectedUserId}
-                onChange={(e) => setSelectedUserId(e.target.value)}
-                required
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white"
-              >
-                <option value="">Select a User</option>
-                {users.map((user) => (
-                  <option key={user.userId} value={user.userId}>
-                    {user.name} (ID: {user.userId})
-                  </option>
-                ))}
-              </select>
-              <div className="relative mt-2">
+              <div className="relative">
                 <input
                   type="text"
-                  placeholder="Or search user by name..."
+                  placeholder="Search and select user..."
                   value={userSearchQuery}
                   onChange={(e) => {
                     setUserSearchQuery(e.target.value);
+                    if (selectedUserId) setSelectedUserId("");
                     setShowUserDropdown(true);
                   }}
                   onFocus={() => setShowUserDropdown(true)}
                   onBlur={() => setTimeout(() => setShowUserDropdown(false), 200)}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white text-sm"
+                  required={!selectedUserId}
                 />
-                {showUserDropdown && userSearchQuery && (
+                <input type="hidden" name="userId" value={selectedUserId} required />
+                {showUserDropdown && (
                   <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
                     {filteredUsers.length > 0 ? (
                       filteredUsers.map((user) => (
@@ -203,34 +199,23 @@ const AssignBook = () => {
                 <BookOpen size={16} className="text-indigo-500" />
                 Select Book
               </label>
-              <select
-                name="bookId"
-                value={selectedBookId}
-                onChange={(e) => setSelectedBookId(e.target.value)}
-                required
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white"
-              >
-                <option value="">Select a Book</option>
-                {books.map((book) => (
-                  <option key={book.bookId} value={book.bookId}>
-                    {book.title} (ID: {book.bookId})
-                  </option>
-                ))}
-              </select>
-              <div className="relative mt-2">
+              <div className="relative">
                 <input
                   type="text"
-                  placeholder="Or search book by name..."
+                  placeholder="Search and select book..."
                   value={bookSearchQuery}
                   onChange={(e) => {
                     setBookSearchQuery(e.target.value);
+                    if (selectedBookId) setSelectedBookId("");
                     setShowBookDropdown(true);
                   }}
                   onFocus={() => setShowBookDropdown(true)}
                   onBlur={() => setTimeout(() => setShowBookDropdown(false), 200)}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-white text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white text-sm"
+                  required={!selectedBookId}
                 />
-                {showBookDropdown && bookSearchQuery && (
+                <input type="hidden" name="bookId" value={selectedBookId} required />
+                {showBookDropdown && (
                   <ul className="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto mt-1">
                     {filteredBooks.length > 0 ? (
                       filteredBooks.map((book) => (
@@ -297,12 +282,15 @@ const AssignBook = () => {
                 <FileText size={16} className="text-indigo-500" />
                 Notes
               </label>
-              <textarea
-                name="notes"
-                rows={3}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 hover:bg-white"
-                placeholder="Optional notes..."
-              />
+              <div className="bg-white rounded-lg">
+                <ReactQuill 
+                  theme="snow" 
+                  value={notes} 
+                  onChange={setNotes} 
+                  placeholder="Optional notes..."
+                />
+              </div>
+              <input type="hidden" name="notes" value={notes} />
             </div>
           </div>
 

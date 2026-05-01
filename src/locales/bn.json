@@ -82,7 +82,7 @@
   "Name": "নাম",
   "Email": "ইমেল",
   "Phone": "ফোন",
-  "Date of Birth": "জন্ম তারিখ",
+  "Date of Birth": "জন্ম তারিখ (YYYY-MM-DD)",
   "Address": "ঠিকানা",
   "No users available.": "কোনো ব্যবহারকারী উপলব্ধ নেই।",
   "Add More Users": "আরও ব্যবহারকারী যোগ করুন",
@@ -110,5 +110,7 @@
   "Secure access to your library management dashboard": "আপনার লাইব্রেরি ম্যানেজমেন্ট ড্যাশবোর্ডে সুরক্ষিত অ্যাক্সেস",
   "Username": "ব্যবহারকারীর নাম",
   "Password": "পাসওয়ার্ড",
-  "Login": "প্রবেশ করুন"
+  "Login": "প্রবেশ করুন",
+  "Books": "বই",
+  "Users": "ব্যবহারকারী"
 }

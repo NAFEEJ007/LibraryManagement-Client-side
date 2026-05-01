@@ -82,7 +82,7 @@
   "Name": "Name",
   "Email": "Email",
   "Phone": "Phone",
-  "Date of Birth": "Date of Birth",
+  "Date of Birth": "Date of Birth (YYYY-MM-DD)",
   "Address": "Address",
   "No users available.": "No users available.",
   "Add More Users": "Add More Users",
@@ -110,5 +110,7 @@
   "Secure access to your library management dashboard": "Secure access to your library management dashboard",
   "Username": "Username",
   "Password": "Password",
-  "Login": "Login"
+  "Login": "Login",
+  "Books": "Books",
+  "Users": "Users"
 }

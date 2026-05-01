@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BookOpen, User, Calendar, FileText, Save } from "lucide-react";
 import Swal from "sweetalert2";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import Editor from 'react-simple-wysiwyg';
 
 type UserType = {
   userId: number;
@@ -282,12 +281,10 @@ const AssignBook = () => {
                 <FileText size={16} className="text-indigo-500" />
                 Notes
               </label>
-              <div className="bg-white rounded-lg">
-                <ReactQuill 
-                  theme="snow" 
+              <div className="bg-white rounded-lg overflow-hidden">
+                <Editor 
                   value={notes} 
-                  onChange={setNotes} 
-                  placeholder="Optional notes..."
+                  onChange={(e) => setNotes(e.target.value)} 
                 />
               </div>
               <input type="hidden" name="notes" value={notes} />

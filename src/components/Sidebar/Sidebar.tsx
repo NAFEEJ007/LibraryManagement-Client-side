@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard,
   BookOpen,
@@ -16,14 +17,16 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
+
   const menuItems = [
-    { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/dashboard" },
-    { name: "Assign Book", icon: <ClipboardCheck size={20} />, path: "/assign-book" },
-    { name: "Return Book", icon: <RotateCcw size={20} />, path: "/return-book" },
-    { name: "Books", icon: <BookOpen size={20} />, path: "/books" },
-    { name: "Add Book", icon: <BookPlus size={20} />, path: "/add-book" },
-    { name: "Users", icon: <Users size={20} />, path: "/users" },
-    { name: "Add User", icon: <UserPlus size={20} />, path: "/add-user" }
+    { name: t("Dashboard"), icon: <LayoutDashboard size={20} />, path: "/dashboard" },
+    { name: t("Assign Book"), icon: <ClipboardCheck size={20} />, path: "/assign-book" },
+    { name: t("Return Book"), icon: <RotateCcw size={20} />, path: "/return-book" },
+    { name: t("Books"), icon: <BookOpen size={20} />, path: "/books" },
+    { name: t("Add Book"), icon: <BookPlus size={20} />, path: "/add-book" },
+    { name: t("Users"), icon: <Users size={20} />, path: "/users" },
+    { name: t("Add User"), icon: <UserPlus size={20} />, path: "/add-user" }
   ];
 
   return (

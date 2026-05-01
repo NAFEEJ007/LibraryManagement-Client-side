@@ -26,10 +26,11 @@ type IssuedBook = {
   borrowerName: string;
   fine: number;
 };
-
 import GlobalSearchBar from "./GlobalSearchBar";
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
+  const { t } = useTranslation();
 
   const [stats, setStats] = useState<Stats>({
     totalBooks: 0,
@@ -77,7 +78,7 @@ const Dashboard = () => {
       {/* 🔹 Header */}
       <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6 rounded-2xl shadow-xl flex items-center gap-3">
         <LayoutDashboard className="text-indigo-400 w-6 h-6 md:w-7 md:h-7" />
-        <h2 className="text-xl md:text-2xl font-bold text-white">Dashboard</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-white">{t('Dashboard')}</h2>
       </div>
 
       {/* 🔹 Global Search Bar */}
@@ -93,7 +94,7 @@ const Dashboard = () => {
         {/* Total Books */}
         <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-500">Total Books</p>
+            <p className="text-sm text-gray-500">{t('Total Books')}</p>
             <h3 className="text-2xl font-bold text-gray-800">
               {stats.totalBooks}
             </h3>
@@ -104,7 +105,7 @@ const Dashboard = () => {
         {/* Assigned */}
         <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-500">Books Assigned</p>
+            <p className="text-sm text-gray-500">{t('Books Assigned')}</p>
             <h3 className="text-2xl font-bold text-gray-800">
               {stats.assignedBooks}
             </h3>
@@ -115,7 +116,7 @@ const Dashboard = () => {
         {/* Returned */}
         <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-500">Books Returned</p>
+            <p className="text-sm text-gray-500">{t('Books Returned')}</p>
             <h3 className="text-2xl font-bold text-gray-800">
               {stats.returnedBooks}
             </h3>
@@ -126,7 +127,7 @@ const Dashboard = () => {
         {/* Users */}
         <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-500">Total Users</p>
+            <p className="text-sm text-gray-500">{t('Total Users')}</p>
             <h3 className="text-2xl font-bold text-gray-800">
               {stats.totalUsers}
             </h3>
@@ -137,7 +138,7 @@ const Dashboard = () => {
         {/* Fined Users */}
         <div className="bg-red-50 p-5 rounded-xl shadow-md border border-red-200 flex items-center justify-between">
           <div>
-            <p className="text-sm text-red-500">Fined Users</p>
+            <p className="text-sm text-red-500">{t('Fined Users')}</p>
             <h3 className="text-2xl font-bold text-red-600">
               {stats.finedUsers}
             </h3>
@@ -153,7 +154,7 @@ const Dashboard = () => {
         {/* Header */}
         <div className="bg-slate-900 px-8 py-5">
           <h3 className="text-lg font-semibold text-white">
-            Currently Issued Books
+            {t('Currently Issued Books')}
           </h3>
         </div>
 
@@ -162,24 +163,24 @@ const Dashboard = () => {
 
           {loading ? (
             <div className="p-6 text-center text-gray-500">
-              Loading data...
+              {t('Loading data...')}
             </div>
           ) : issuedBooks.length === 0 ? (
             <div className="p-6 text-center text-gray-400">
-              No issued books found
+              {t('No issued books found')}
             </div>
           ) : (
             <table className="w-full text-sm text-left">
               <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
                 <tr>
-                  <th className="px-6 py-3">Book Title</th>
-                  <th className="px-6 py-3">Author</th>
-                  <th className="px-6 py-3">Category</th>
-                  <th className="px-6 py-3">ISBN</th>
-                  <th className="px-6 py-3">Due Date</th>
-                  <th className="px-6 py-3">Borrower ID</th>
-                  <th className="px-6 py-3">Borrower Name</th>
-                  <th className="px-6 py-3">Fine</th>
+                  <th className="px-6 py-3">{t('Book Title')}</th>
+                  <th className="px-6 py-3">{t('Author')}</th>
+                  <th className="px-6 py-3">{t('Category')}</th>
+                  <th className="px-6 py-3">{t('ISBN')}</th>
+                  <th className="px-6 py-3">{t('Due Date')}</th>
+                  <th className="px-6 py-3">{t('Borrower ID')}</th>
+                  <th className="px-6 py-3">{t('Borrower Name')}</th>
+                  <th className="px-6 py-3">{t('Fine')}</th>
                 </tr>
               </thead>
 
@@ -210,7 +211,7 @@ const Dashboard = () => {
                           ৳{book.fine}
                         </span>
                       ) : (
-                        <span className="text-gray-400">N/A</span>
+                        <span className="text-gray-400">{t('N/A')}</span>
                       )}
                     </td>
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BookOpen, User, Calendar, FileText, Save } from "lucide-react";
 import Swal from "sweetalert2";
 import Editor from 'react-simple-wysiwyg';
+import { useTranslation } from "react-i18next";
 
 type UserType = {
   userId: number;
@@ -15,6 +16,7 @@ type BookType = {
 };
 
 const AssignBook = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState<UserType[]>([]);
   const [books, setBooks] = useState<BookType[]>([]);
 
@@ -141,10 +143,10 @@ const AssignBook = () => {
         <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6">
           <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
             <BookOpen className="text-indigo-400 w-6 h-6 md:w-7 md:h-7" />
-            Assign Book
+            {t('Assign Book')}
           </h2>
           <p className="text-slate-400 text-xs md:text-sm mt-1 ml-9 md:ml-10">
-            Assign a book to a library user
+            {t('Assign a book to a library user')}
           </p>
         </div>
 
@@ -154,12 +156,12 @@ const AssignBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <User size={16} className="text-indigo-500" />
-                Select User
+                {t('Select User')}
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search and select user..."
+                  placeholder={t('Type to search and select user...')}
                   value={userSearchQuery}
                   onChange={(e) => {
                     setUserSearchQuery(e.target.value);
@@ -185,7 +187,7 @@ const AssignBook = () => {
                         </li>
                       ))
                     ) : (
-                      <li className="px-4 py-2 text-sm text-gray-500">No users found</li>
+                      <li className="px-4 py-2 text-sm text-gray-500">{t('No users found')}</li>
                     )}
                   </ul>
                 )}
@@ -196,12 +198,12 @@ const AssignBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <BookOpen size={16} className="text-indigo-500" />
-                Select Book
+                {t('Select Book')}
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search and select book..."
+                  placeholder={t('Type to search and select book...')}
                   value={bookSearchQuery}
                   onChange={(e) => {
                     setBookSearchQuery(e.target.value);
@@ -227,7 +229,7 @@ const AssignBook = () => {
                         </li>
                       ))
                     ) : (
-                      <li className="px-4 py-2 text-sm text-gray-500">No books found</li>
+                      <li className="px-4 py-2 text-sm text-gray-500">{t('No books found')}</li>
                     )}
                   </ul>
                 )}
@@ -238,7 +240,7 @@ const AssignBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <Calendar size={16} className="text-indigo-500" />
-                Issue Date
+                {t('Issue Date')}
               </label>
               <input
                 type="date"
@@ -252,7 +254,7 @@ const AssignBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <Calendar size={16} className="text-indigo-500" />
-                Due Date
+                {t('Due Date')}
               </label>
               <input
                 type="date"
@@ -279,7 +281,7 @@ const AssignBook = () => {
             <div className="space-y-2 md:col-span-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <FileText size={16} className="text-indigo-500" />
-                Notes
+                {t('Notes')}
               </label>
               <div className="bg-white rounded-lg overflow-hidden">
                 <Editor 
@@ -298,7 +300,7 @@ const AssignBook = () => {
               className="cursor-pointer px-8 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200 transition-all shadow-lg flex items-center gap-2"
             >
               <Save size={18} />
-              Assign Book
+              {t('Assign Book')}
             </button>
           </div>
         </form>

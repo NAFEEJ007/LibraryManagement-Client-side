@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { User, BookOpen, Calendar, FileText, Save } from "lucide-react";
 import Swal from "sweetalert2";
 import Editor from 'react-simple-wysiwyg';
+import { useTranslation } from 'react-i18next';
 
 type UserType = {
   userId: number;
@@ -16,6 +17,7 @@ type BorrowedBook = {
 };
 
 const ReturnBook = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState<UserType[]>([]);
   const [borrowedBooks, setBorrowedBooks] = useState<BorrowedBook[]>([]);
 
@@ -124,10 +126,10 @@ const ReturnBook = () => {
         <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6">
           <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
             <BookOpen className="text-indigo-400 w-6 h-6 md:w-7 md:h-7" />
-            Return Book
+            {t('Return Book')}
           </h2>
           <p className="text-slate-400 text-xs md:text-sm mt-1 ml-9 md:ml-10">
-            Process book return from borrower
+            {t('Process book return from borrower')}
           </p>
         </div>
 
@@ -137,12 +139,12 @@ const ReturnBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <User size={16} className="text-indigo-500" />
-                Select User
+                {t('Select User')}
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search and select user..."
+                  placeholder={t('Type to search and select user...')}
                   value={userSearchQuery}
                   onChange={(e) => {
                     setUserSearchQuery(e.target.value);
@@ -167,7 +169,7 @@ const ReturnBook = () => {
                         </li>
                       ))
                     ) : (
-                      <li className="px-4 py-2 text-sm text-gray-500">No users found</li>
+                      <li className="px-4 py-2 text-sm text-gray-500">{t('No users found')}</li>
                     )}
                   </ul>
                 )}
@@ -178,12 +180,12 @@ const ReturnBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <BookOpen size={16} className="text-indigo-500" />
-                Select Book
+                {t('Select Book')}
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search and select book..."
+                  placeholder={t('Type to search and select book...')}
                   value={bookSearchQuery}
                   onChange={(e) => {
                     setBookSearchQuery(e.target.value);
@@ -209,7 +211,7 @@ const ReturnBook = () => {
                         </li>
                       ))
                     ) : (
-                      <li className="px-4 py-2 text-sm text-gray-500">No borrowed books found</li>
+                      <li className="px-4 py-2 text-sm text-gray-500">{t('No borrowed books found')}</li>
                     )}
                   </ul>
                 )}
@@ -219,7 +221,7 @@ const ReturnBook = () => {
             {/* Due Date */}
             {selectedBook && (
               <div className="space-y-2">
-                <label className="text-sm text-gray-700">Due Date</label>
+                <label className="text-sm text-gray-700">{t('Due Date')}</label>
                 <input
                   value={selectedBook.dueDate}
                   disabled
@@ -232,7 +234,7 @@ const ReturnBook = () => {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <Calendar size={16} className="text-indigo-500" />
-                Return Date
+                {t('Return Date')}
               </label>
               <input
                 type="date"
@@ -247,7 +249,7 @@ const ReturnBook = () => {
             <div className="space-y-2 md:col-span-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <FileText size={16} className="text-indigo-500" />
-                Notes
+                {t('Notes')}
               </label>
               <div className={`rounded-lg border overflow-hidden ${isLate ? "border-red-500 bg-red-50" : "border-gray-300 bg-white"}`}>
                 <Editor 
@@ -262,7 +264,7 @@ const ReturnBook = () => {
           <div className="pt-6 flex justify-end">
             <button className="cursor-pointer px-8 py-3 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 flex items-center gap-2">
               <Save size={18} />
-              Return Book
+              {t('Return Book')}
             </button>
           </div>
         </form>

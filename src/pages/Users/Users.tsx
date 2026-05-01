@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type User = {
   userId: number;
@@ -23,6 +24,7 @@ type User = {
 };
 
 const Users = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
@@ -202,7 +204,7 @@ const Users = () => {
         <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-3 whitespace-nowrap">
             <UserIcon className="text-indigo-400 w-6 h-6 md:w-7 md:h-7" />
-            Library Users
+            {t('Library Users')}
           </h2>
 
           <div className="flex items-center gap-4 w-full md:w-auto">
@@ -221,7 +223,7 @@ const Users = () => {
                   }}
                   onFocus={() => setShowSuggestions(searchQuery.length > 0)}
                   className="block w-full pl-9 pr-3 py-2 border border-slate-700 bg-slate-800 text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder-slate-400"
-                  placeholder="Search Users..."
+                  placeholder={t('Search Users...')}
                 />
               </form>
               
@@ -248,13 +250,13 @@ const Users = () => {
                            className="text-xs text-center p-2 text-indigo-500 hover:bg-slate-50 cursor-pointer border-t border-slate-100 font-medium"
                            onClick={() => handleSearchSubmit()}
                          >
-                           See all {filteredUsers.length} matches
+                           {t('See all matches')}
                          </li>
                       )}
                     </ul>
                   ) : (
                     <div className="p-3 text-center text-sm text-gray-500">
-                      No results found
+                      {t('No results found')}
                     </div>
                   )}
                 </div>
@@ -271,7 +273,7 @@ const Users = () => {
                 className="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
               />
               <label htmlFor="sortAlphaUsers" className="text-sm font-medium text-slate-300 cursor-pointer">
-                Sort Alphabetically
+                {t('Sort Alphabetically')}
               </label>
             </div>
           </div>
@@ -282,12 +284,12 @@ const Users = () => {
           <table className="min-w-full text-sm text-left text-gray-600">
             <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
               <tr>
-                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">Name</th>
-                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">Email</th>
-                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">Phone</th>
-                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">Date of Birth</th>
-                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">Address</th>
-                <th className="px-4 py-3 md:px-6 md:py-3 text-center whitespace-nowrap">Actions</th>
+                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">{t('Name')}</th>
+                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">{t('Email')}</th>
+                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">{t('Phone')}</th>
+                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">{t('Date of Birth')}</th>
+                <th className="px-4 py-3 md:px-6 md:py-3 whitespace-nowrap">{t('Address')}</th>
+                <th className="px-4 py-3 md:px-6 md:py-3 text-center whitespace-nowrap">{t('Actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -307,7 +309,7 @@ const Users = () => {
                         className="cursor-pointer flex items-center gap-1 px-3 py-1.5 text-sm rounded-md bg-indigo-500 text-white hover:bg-indigo-600 transition"
                       >
                         <Pencil size={16} />
-                        Edit
+                        {t('Edit')}
                       </button>
 
                       {/* Delete */}
@@ -316,7 +318,7 @@ const Users = () => {
                         className="cursor-pointer flex items-center gap-1 px-3 py-1.5 text-sm rounded-md bg-red-500 text-white hover:bg-red-600 transition"
                       >
                         <Trash2 size={16} />
-                        Delete
+                        {t('Delete')}
                       </button>
 
                     </td>
@@ -325,7 +327,7 @@ const Users = () => {
               ) : (
                 <tr>
                   <td colSpan={6} className="text-center py-6 text-gray-500">
-                    No users available.
+                    {t('No users available.')}
                   </td>
                 </tr>
               )}
@@ -337,7 +339,7 @@ const Users = () => {
         {totalPages > 1 && (
           <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100 bg-gray-50">
             <div className="text-sm text-gray-600">
-              Page <span className="font-semibold text-gray-900">{currentPage}</span> of <span className="font-semibold text-gray-900">{totalPages}</span>
+              {t('Page')} <span className="font-semibold text-gray-900">{currentPage}</span> {t('of')} <span className="font-semibold text-gray-900">{totalPages}</span>
             </div>
             <div className="flex gap-2">
               <button 
@@ -345,14 +347,14 @@ const Users = () => {
                 disabled={currentPage === 1}
                 className="flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                >
-                <ChevronLeft size={16} /> Previous
+                <ChevronLeft size={16} /> {t('Previous')}
               </button>
               <button 
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
                 className="flex items-center gap-1 px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                Next <ChevronRight size={16} />
+                {t('Next')} <ChevronRight size={16} />
               </button>
             </div>
           </div>
@@ -363,7 +365,7 @@ const Users = () => {
           <Link to="/add-user">
           <button className="cursor-pointer flex items-center gap-2 px-6 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition shadow-md">
             <Plus size={18} />
-            Add More Users
+            {t('Add More Users')}
           </button>
           </Link>
         </div>
@@ -375,7 +377,7 @@ const Users = () => {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[85vh] flex flex-col overflow-hidden">
             <div className="bg-slate-900 px-6 py-4 flex justify-between items-center shrink-0">
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <Search size={22} className="text-indigo-400" /> Search Results for "{searchQuery}"
+                <Search size={22} className="text-indigo-400" /> {t('Search Results for')} "{searchQuery}"
               </h2>
               <button 
                 onClick={() => setIsSearchModalOpen(false)}
@@ -389,8 +391,8 @@ const Users = () => {
               {filteredUsers.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-slate-500">
                   <span className="text-4xl mb-4 text-slate-400">🔍</span>
-                  <p className="text-lg font-medium text-slate-600">No results match your search</p>
-                  <p className="text-sm mt-1 text-slate-400">Try adjusting your keywords.</p>
+                  <p className="text-lg font-medium text-slate-600">{t('No results match your search')}</p>
+                  <p className="text-sm mt-1 text-slate-400">{t('Try adjusting your keywords.')}</p>
                 </div>
               ) : (
                 <div className="rounded-lg border border-gray-200 shadow-sm overflow-hidden bg-white">
@@ -447,10 +449,10 @@ const Users = () => {
           <div className="bg-slate-900 px-8 py-6">
             <h2 className="text-xl font-bold text-white flex items-center gap-3">
               <Pencil className="text-indigo-400" size={22} />
-              Edit User
+              {t('Edit User')}
             </h2>
             <p className="text-slate-400 text-sm mt-1 ml-9">
-              Update user details
+              {t('Update user details')}
             </p>
           </div>
 
@@ -522,14 +524,14 @@ const Users = () => {
                 }
                 className="cursor-pointer px-6 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
               >
-                Cancel
+                {t('Cancel')}
               </button>
               <button
                 type="submit"
                 className="cursor-pointer px-8 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 flex items-center gap-2 transition"
               >
                 <Save size={16} />
-                Save Changes
+                {t('Save Changes')}
               </button>
             </div>
           </form>

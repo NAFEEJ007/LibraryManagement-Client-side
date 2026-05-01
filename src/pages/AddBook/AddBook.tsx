@@ -1,8 +1,10 @@
 import React from 'react';
 import { Book, User, Tag, Hash, Layers, Save } from 'lucide-react';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 const AddBook = () => {
+    const { t } = useTranslation();
 
     const handleAddBook = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -62,9 +64,9 @@ const AddBook = () => {
                 <div className="bg-slate-900 px-6 py-5 md:px-8 md:py-6">
                     <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
                         <Book className="text-indigo-400 w-6 h-6 md:w-7 md:h-7" />
-                        Add New Book
+                        {t('Add New Book')}
                     </h2>
-                    <p className="text-slate-400 text-xs md:text-sm mt-1 ml-9 md:ml-10">Register a new book into the library catalogue</p>
+                    <p className="text-slate-400 text-xs md:text-sm mt-1 ml-9 md:ml-10">{t('Register a new book into the library catalogue')}</p>
                 </div>
 
                 {/* Form Content */}
@@ -74,13 +76,13 @@ const AddBook = () => {
                         {/* Title */}
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <Book size={16} className="text-indigo-500" /> Title
+                                <Book size={16} className="text-indigo-500" /> {t('Title')}
                             </label>
                             <input
                                 type="text"
                                 name="title"
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-gray-50 hover:bg-white"
-                                placeholder="e.g. The Great Gatsby"
+                                placeholder={t('e.g. The Great Gatsby')}
                                 required
                             />
                         </div>
@@ -88,13 +90,13 @@ const AddBook = () => {
                         {/* Author */}
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <User size={16} className="text-indigo-500" /> Author
+                                <User size={16} className="text-indigo-500" /> {t('Author')}
                             </label>
                             <input
                                 type="text"
                                 name="author"
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-gray-50 hover:bg-white"
-                                placeholder="e.g. F. Scott Fitzgerald"
+                                placeholder={t('e.g. F. Scott Fitzgerald')}
                                 required
                             />
                         </div>
@@ -102,13 +104,13 @@ const AddBook = () => {
                         {/* Category */}
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <Tag size={16} className="text-indigo-500" /> Category
+                                <Tag size={16} className="text-indigo-500" /> {t('Category')}
                             </label>
                             <input
                                 type="text"
                                 name="category"
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-gray-50 hover:bg-white"
-                                placeholder="e.g. Fiction"
+                                placeholder={t('e.g. Fiction')}
                                 required
                             />
                         </div>
@@ -116,13 +118,13 @@ const AddBook = () => {
                         {/* ISBN */}
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <Hash size={16} className="text-indigo-500" /> ISBN
+                                <Hash size={16} className="text-indigo-500" /> {t('ISBN')}
                             </label>
                             <input
                                 type="text"
                                 name="isbn"
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-gray-50 hover:bg-white"
-                                placeholder="e.g. 978-3-16-148410-0"
+                                placeholder={t('e.g. 978-3-16-148410-0')}
                                 required
                             />
                         </div>
@@ -130,14 +132,14 @@ const AddBook = () => {
                         {/* Total Copies */}
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <Layers size={16} className="text-indigo-500" /> Total Copies
+                                <Layers size={16} className="text-indigo-500" /> {t('Total Copies')}
                             </label>
                             <input
                                 type="number"
                                 name="totalCopies"
                                 min={0}
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-gray-50 hover:bg-white"
-                                placeholder="e.g. 10"
+                                placeholder={t('e.g. 10')}
                                 required
                             />
                         </div>
@@ -145,14 +147,14 @@ const AddBook = () => {
                         {/* Available Copies */}
                         <div className="space-y-2">
                             <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                <Layers size={16} className="text-indigo-500" /> Available Copies
+                                <Layers size={16} className="text-indigo-500" /> {t('Available Copies')}
                             </label>
                             <input
                                 type="number"
                                 name="availableCopies"
                                 min={0}
                                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none bg-gray-50 hover:bg-white"
-                                placeholder="e.g. 10"
+                                placeholder={t('e.g. 10')}
                                 required
                             />
                         </div>
@@ -165,7 +167,7 @@ const AddBook = () => {
                             className="cursor-pointer px-8 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 w-full md:w-auto"
                         >
                             <Save size={18} />
-                            Save Book
+                            {t('Save Book')}
                         </button>
                     </div>
                 </form>

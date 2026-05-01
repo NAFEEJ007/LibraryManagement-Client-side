@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Book, Lock, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -48,10 +50,10 @@ const Login = () => {
           className="bg-white pt-16 pb-10 px-8 rounded-2xl shadow-2xl space-y-6"
         >
           <h2 className="text-2xl font-bold text-center text-gray-800">
-            Admin Login
+            {t('Admin Login')}
           </h2>
           <p className="text-center text-gray-500 text-sm">
-            Secure access to your library management dashboard
+            {t('Secure access to your library management dashboard')}
           </p>
 
           {/* Username */}
@@ -59,7 +61,7 @@ const Login = () => {
             <User className="absolute left-3 top-3 text-gray-400" size={20} />
             <input
               type="text"
-              placeholder="Username"
+              placeholder={t('Username')}
               className="w-full pl-10 pr-3 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
               onChange={(e) => setForm({ ...form, username: e.target.value })}
               required
@@ -71,7 +73,7 @@ const Login = () => {
             <Lock className="absolute left-3 top-3 text-gray-400" size={20} />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t('Password')}
               className="w-full pl-10 pr-3 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required
@@ -79,7 +81,7 @@ const Login = () => {
           </div>
 
           <button className="cursor-pointer w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg transition-all">
-            Login
+            {t('Login')}
           </button>
 
           <p className="text-center text-gray-400 text-sm mt-2">
